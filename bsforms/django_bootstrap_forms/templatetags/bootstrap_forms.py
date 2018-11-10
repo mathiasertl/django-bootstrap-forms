@@ -13,11 +13,21 @@
 # You should have received a copy of the GNU General Public License along with django-bootstrap-forms.  If
 # not, see <http://www.gnu.org/licenses/>.
 
-from django.views.generic.edit import FormView
+from django import template
+from django.conf import settings
+
+register = template.Library()
 
 
-class DemoView(FormView):
-    success_url = '/'
+@register.inclusion_tag(['label.html', 'bootstrap_forms/label.html'], takes_context=True)
+def label(context, field, **attrs):
+    label_attrs = getattr(settings, 'BOOTSTRAP_FORMS', {}).get('label_attrs', {})
+    label_attrs.update(context.get('label_attrs', {}))
+    label_attrs.update(attrs)
+    label_attrs['for'] = field.id_for_label
 
-    def get_template_names(self):
-        return 'demo/%s.html' % self.form_class.__name__.lower()
+    context = {
+        'label': field.label,
+        'attrs': label_attrs,
+    }
+    return context

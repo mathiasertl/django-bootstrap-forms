@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load bootstrap_forms %}
+
+{% block content %}
+<form action="/your-name/" method="post">
+    {% csrf_token %}
+
+		{% label form.name foo="bar" %}
+    <input type="submit" value="Submit">
+</form>
+{% endblock content %}
