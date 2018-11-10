@@ -13,11 +13,9 @@
 # You should have received a copy of the GNU General Public License along with django-bootstrap-forms.  If
 # not, see <http://www.gnu.org/licenses/>.
 
-from django.views.generic.edit import FormView
+
+from django import forms
 
 
-class DemoView(FormView):
-    success_url = '/'
-
-    def get_template_names(self):
-        return '%s.html' % self.form_class.__name__.lower()
+class BaseForm(forms.Form):
+    name = forms.CharField()
