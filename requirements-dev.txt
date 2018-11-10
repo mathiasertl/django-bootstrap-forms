@@ -1,0 +1,5 @@
+Sphinx==1.8.1
+flake8==3.6.0
+ipython
+isort==4.3.4
+tox==3.5.3
