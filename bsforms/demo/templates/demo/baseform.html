@@ -5,7 +5,7 @@
 <form action="/your-name/" method="post">
     {% csrf_token %}
 
-		{% label form.name foo="bar" %}
+		{% label form.name foo="bar" class="class1 class2" %}
     <input type="submit" value="Submit">
 </form>
 {% endblock content %}

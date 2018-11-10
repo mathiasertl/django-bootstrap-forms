@@ -16,15 +16,26 @@
 from django import template
 from django.conf import settings
 
+from ..utils import update_css_classes
+
 register = template.Library()
 
 
 @register.inclusion_tag(['label.html', 'bootstrap_forms/label.html'], takes_context=True)
 def label(context, field, **attrs):
     label_attrs = getattr(settings, 'BOOTSTRAP_FORMS', {}).get('label_attrs', {})
-    label_attrs.update(context.get('label_attrs', {}))
+    css_classes = update_css_classes([], label_attrs.pop('class', ''))
+
+    context_attrs = context.get('label_attrs', {})
+    css_classes = update_css_classes(css_classes, context_attrs.pop('class', ''))
+    label_attrs.update(context_attrs)
+
+    if 'class' in attrs:
+        css_classes = update_css_classes(css_classes, attrs.pop('class', ''))
+
     label_attrs.update(attrs)
     label_attrs['for'] = field.id_for_label
+    label_attrs['class'] = ' '.join(css_classes)
 
     context = {
         'label': field.label,

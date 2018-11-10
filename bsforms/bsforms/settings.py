@@ -121,3 +121,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+BOOTSTRAP_FORMS = {
+    'label_attrs': {
+        'class': 'settings-label',
+    },
+}
