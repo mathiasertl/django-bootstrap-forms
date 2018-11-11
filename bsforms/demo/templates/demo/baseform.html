@@ -5,7 +5,13 @@
 <form action="/your-name/" method="post">
     {% csrf_token %}
 
-		{% label form.name foo="bar" class="class1 class2" %}
+    {% with form_horizontal_label="col-sm-2" %}
+    <div class="form-group row">
+      {% label form.name fromtag="1" class="class1 class2" %} 
+      {{ form.name }}
+    </div>
+    {% endwith %}
+
     <input type="submit" value="Submit">
 </form>
 {% endblock content %}
